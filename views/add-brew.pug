@@ -1,0 +1,14 @@
+extends layout
+
+block main 
+  div.add-coffee-form-wrapper
+    form(action=action=`/coffees/${coffeeId}/add-brew` method='post')
+      div.add-coffee-form
+        div.form-element
+          label Method 
+            input(type="text" name="method")
+        div.form-element
+          label Description
+            input(type="text" name="description")
+        div.form-element
+          input(type="submit" value="Save Coffee")

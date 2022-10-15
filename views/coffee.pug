@@ -1,0 +1,18 @@
+extend layout
+
+block main
+  form(action=`/coffees/${coffeeId}/add-brew` method='get')
+    button Record a brew!
+  ul
+    h2 #{coffee.name} 
+    li Roaster: #{coffee.roaster_name}
+    li COO: #{coffee.country_of_origin}
+    li Region: #{coffee.region_of_origin}
+    li Process: #{coffee.process}
+    li Price/bag: $#{coffee.bag_price}
+    li Your impression: #{coffee.description}
+  br
+  for brew in brews
+    ul 
+      li Method: #{brew.method}
+      li Description: #{brew.description}
