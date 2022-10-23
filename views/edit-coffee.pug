@@ -1,0 +1,31 @@
+extends layout 
+
+block main 
+  div.add-coffee-form-wrapper
+    form(action=`/coffees/${coffeeId}/edit` method='post')
+      div.add-coffee-form
+        div.form-element
+          label Coffee Name
+            input(type="text" name="name" placeHolder=coffee.name)
+        div.form-element
+          label Roaster
+            input(type="text" name="roaster_name" placeHolder=coffee.roaster_name)
+        div.form-element
+          label Country
+            input(type="text" name="country_of_origin" placeHolder=coffee.country_of_origin)
+        div.form-element
+          label Region
+            input(type="text" name="region_of_origin" placeHolder=coffee.region_of_origin)
+        div.form-element
+          label Process
+            input(type="text" name="process" placeHolder=coffee.process)
+        div.form-element
+          label Price per Bag 
+            input(type="number" step="0.01" min="0" name="bag_price" placeHolder=coffee.bag_price)
+        div.form-element
+          label Description 
+            textarea(name="description" placeHolder=coffee.description)
+        div.form-element
+          input(type="submit" value="Save Coffee")
+    form(action="/coffees" method="get")
+      button(type="submit") Cancel

@@ -1,9 +1,11 @@
 extend layout
 
 block main
-  form(action=`/coffees/${coffeeId}/add-brew` method='get')
-    button Record a brew!
-  ul
+  form(action='/coffees/' method='get')
+      button Back
+  form(action=`/coffees/${coffee.id}/edit` method="get")
+            button(type="submit") Edit
+  ul.coffee-card
     h2 #{coffee.name} 
     li Roaster: #{coffee.roaster_name}
     li COO: #{coffee.country_of_origin}
@@ -12,7 +14,16 @@ block main
     li Price/bag: $#{coffee.bag_price}
     li Your impression: #{coffee.description}
   br
-  for brew in brews
-    ul 
-      li Method: #{brew.method}
-      li Description: #{brew.description}
+  form(action=`/coffees/${coffeeId}/add-brew` method='get')
+    button Record a brew!
+  div.coffee-card-wrapper
+    h1 Your Brews
+    for brew in brews
+      div.coffee-card
+        ul 
+          li Method: #{brew.method}
+          li Description: #{brew.description}
+          form(action=`/coffees/${coffeeId}/${brew.id}/edit-brew` method='get')
+            button Edit
+          form(action=`/coffees/${coffeeId}/${brew.id}/delete-brew` method='post')
+            button Delete

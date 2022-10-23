@@ -55,6 +55,12 @@ fieldset {
   border: none;
 }
 
+a,
+:visited a {
+  text-decoration: none;
+  color: black;
+}
+
 address {
   font-style: normal;
 }

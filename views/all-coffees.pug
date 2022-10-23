@@ -5,30 +5,36 @@ block main
     button Add a bag!
 
   br
-  for coffee in coffees
-    div.coffee-card
-      a(href=`/coffees/${coffee.id}`)
-        h2 #{coffee.name} 
-      table
-        tr
-          th Roaster: 
-          td #{coffee.roaster_name}
-        tr
-          th COO: 
-          td #{coffee.country_of_origin}
-        tr
-          th Region:
-          td Region: #{coffee.region_of_origin}
-        tr
-          th Process: 
-          td #{coffee.process}
-        tr
-          th Price/bag:
-          td  $#{coffee.bag_price}
-        tr
-          th Your impression:
-          td  #{coffee.description}
-        tr
-          form(action=`/coffees/${coffee.id}/destroy` method="post")
-            button(type="submit") Delete List
+  div.coffee-card-wrapper
+    for coffee in coffees
+      div.coffee-card
+        a(href=`/coffees/${coffee.id}`)
+          span #{coffee.name} 
+        table
+          tr
+            th Roaster: 
+            td #{coffee.roaster_name}
+          tr
+            th Country: 
+            td #{coffee.country_of_origin}
+          tr
+            th Region:
+            td #{coffee.region_of_origin}
+          tr
+            th Process: 
+            td #{coffee.process}
+          tr
+            th Price/bag:
+            td  $#{coffee.bag_price}
+          tr
+            th Your impression:
+            td  #{coffee.description}
+          tr
+            td
+              form(action=`/coffees/${coffee.id}/destroy` method="post")
+                button(type="submit") Delete
+            td
+              form(action=`/coffees/${coffee.id}/edit` method="get")
+                button(type="submit") Edit
+
 

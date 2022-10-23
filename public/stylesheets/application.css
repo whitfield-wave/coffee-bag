@@ -1,5 +1,46 @@
-.coffee-card {
-  border: solid;
+body {
+  background-color: rgb(255, 227, 174);
+}
+
+header {
+  min-height: 10%;
 }
 
 
+
+header h1 {
+  font-size: 7em;
+}
+
+.container {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: aliceblue;
+
+}
+
+.coffee-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+  margin: 0 auto;
+  min-height: 1400px;
+}
+
+.coffee-card {
+  border: solid;
+  border-radius: 10px;
+  margin: 0.2em;
+  padding: 0.2em;
+  background-color: white;
+}
+
+.coffee-card span {
+  font-size: 1.5em;
+  margin: .5em;
+}
+
+.coffee-card a:hover {
+  color: rgb(255, 127, 127)
+}

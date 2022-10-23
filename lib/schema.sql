@@ -4,6 +4,7 @@ CREATE TABLE coffees (
   roaster_name text NOT NULL,
   country_of_origin text NOT NULL,
   region_of_origin text NOT NULL,
+  process text NOT NULL,
   bag_price numeric (4,2),
   description text
 );

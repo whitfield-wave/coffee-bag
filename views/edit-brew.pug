@@ -2,13 +2,13 @@ extends layout
 
 block main 
   div.add-coffee-form-wrapper
-    form(action=`/coffees/${coffeeId}/add-brew` method='post')
+    form(action=`/coffees/${coffeeId}/${brew.id}/edit-brew` method='post')
       div.add-coffee-form
         div.form-element
           label Method 
-            input(type="text" name="method")
+            input(type="text" name="method" placeHolder=brew.method)
         div.form-element
           label Description
-            input(type="text" name="description")
+            textarea(name="description" placeHolder=brew.description)
         div.form-element
           input(type="submit" value="Save Brew")
