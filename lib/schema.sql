@@ -6,12 +6,14 @@ CREATE TABLE coffees (
   region_of_origin text NOT NULL,
   process text NOT NULL,
   bag_price numeric (4,2),
-  description text
+  description text,
+  date date DEFAULT CURRENT_DATE
 );
 
 CREATE TABLE brews (
   id serial PRIMARY KEY,
   method text NOT NULL,
   description text NOT NULL,
+  date date DEFAULT CURRENT_DATE,
   coffee_id integer NOT NULL REFERENCES coffees (id) ON DELETE CASCADE
 );

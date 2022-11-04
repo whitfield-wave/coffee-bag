@@ -13,6 +13,7 @@ block main
     li Process: #{coffee.process}
     li Price/bag: $#{coffee.bag_price}
     li Your impression: #{coffee.description}
+    li Added on #{coffee.date.toLocaleDateString()}
   br
   form(action=`/coffees/${coffeeId}/add-brew` method='get')
     button Record a brew!
@@ -22,6 +23,7 @@ block main
       div.coffee-card
         ul 
           li Method: #{brew.method}
+          li Date: #{brew.date.toLocaleDateString()}
           li Description: #{brew.description}
           form(action=`/coffees/${coffeeId}/${brew.id}/edit-brew` method='get')
             button Edit

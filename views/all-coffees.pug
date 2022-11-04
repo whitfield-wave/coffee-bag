@@ -36,5 +36,6 @@ block main
             td
               form(action=`/coffees/${coffee.id}/edit` method="get")
                 button(type="submit") Edit
+        p Added on #{coffee.date.toLocaleDateString()}
 
 
