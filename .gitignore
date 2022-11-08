@@ -1,2 +1,5 @@
 node_modules
 snake-camel-case.js
+session-store.db
+lib/users.sql
+.env

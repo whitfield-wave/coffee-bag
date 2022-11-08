@@ -14,3 +14,16 @@ html(lang="en-US")
         h1 Coffee Bag
 
       block main
+
+      footer
+      block signIn
+        if signedIn
+          form(action="/users/signout" method="post")
+            fieldset.actions
+              p Signed in as #{username}.
+              button Sign Out
+        else
+          form(action="/users/signin" method="get")
+            fieldset.actions
+              p You are not signed in.
+              button Sign In

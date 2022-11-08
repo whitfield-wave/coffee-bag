@@ -7,7 +7,8 @@ CREATE TABLE coffees (
   process text NOT NULL,
   bag_price numeric (4,2),
   description text,
-  date date DEFAULT CURRENT_DATE
+  date date DEFAULT CURRENT_DATE,
+  username text NOT NULL
 );
 
 CREATE TABLE brews (
@@ -15,5 +16,6 @@ CREATE TABLE brews (
   method text NOT NULL,
   description text NOT NULL,
   date date DEFAULT CURRENT_DATE,
-  coffee_id integer NOT NULL REFERENCES coffees (id) ON DELETE CASCADE
+  coffee_id integer NOT NULL REFERENCES coffees (id) ON DELETE CASCADE,
+  username text NOT NULL
 );

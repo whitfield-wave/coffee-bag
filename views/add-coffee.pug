@@ -1,9 +1,14 @@
 extends layout 
 
 block main 
-  div.add-coffee-form-wrapper
-    form(action=action="/coffees/add/" method='post')
+  div.add-coffee-form-wrapper  
+    form(action='/coffees/' method='get')
+      button Back
+    form(action="/coffees/add/"  method='post')
       div.add-coffee-form
+        //- div.form-element
+        //-   label Image
+        //-     input(type="file" name="uploaded_file")
         div.form-element
           label Coffee Name
             input(type="text" name="coffeeName")
