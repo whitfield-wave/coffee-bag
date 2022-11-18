@@ -11,5 +11,6 @@ block main
           label Description
             textarea(name="description" placeHolder=brew.description)
         div.form-element
-          //- input(type="submit" value="Save Brew")
-          button.add Save Brew
+          button.add Save Changes
+    form(action="/coffees" method="get")
+      button(type="submit") Cancel

@@ -11,4 +11,6 @@ block main
           label Description
             input(type="text" name="description")
         div.form-element
-          input(type="submit" value="Save Brew")
+          button Save Brew
+    form(action="/coffees" method="get")
+      button(type="submit") Cancel

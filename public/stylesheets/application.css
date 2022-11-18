@@ -1,5 +1,6 @@
 body {
   background-color: rgb(255, 227, 174);
+  height: 100vh;
 }
 
 header {
@@ -15,6 +16,7 @@ header h1 {
   margin-left: auto;
   margin-right: auto;
   background-color: aliceblue;
+  min-height: 100%;
 }
 
 
@@ -25,12 +27,13 @@ header h1 {
 }
 
 
-.coffee-card {
+.coffee-card, .brew-card {
   border: solid;
   border-radius: 0.75em;
   margin: 0.2em;
   padding: 0.2em;
   background-color: white;
+  padding: 1em;
 }
 
 .coffee-card-wrapper {
@@ -42,7 +45,7 @@ header h1 {
 }
 
 .coffee-header {
-  min-width: 75%;
+  min-width: 60%;
 }
 
 
@@ -56,11 +59,12 @@ header h1 {
 }
 
 .flash {
-  background-color: #cbe5f2;
-  color: #3399cc;
+  background-color: #ededed;
+  color: #393939;
   margin: 20px 0 1.5rem;
   max-width: 1000px;
   padding: 10px 20px;
+  border-radius: 5px;
 }
 
 .flash p {
@@ -94,7 +98,7 @@ button {
   font-weight: 600;
   justify-content: center;
   line-height: 1.25;
-  margin: 0;
+  margin: .25em;
   min-height: 3rem;
   padding: calc(.875rem - 1px) calc(1.5rem - 1px);
   position: relative;
@@ -107,6 +111,8 @@ button {
   width: auto;
 }
 
+
+
 button:hover,
 button:focus {
   background-color: rgb(227, 113, 113);
@@ -118,6 +124,70 @@ button:hover {
 }
 
 button:active {
-  background-color: rgb(253, 106, 106) box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+  background-color: rgb(253, 106, 106);
+  box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
   transform: translateY(0);
+}
+
+.signin-signup {
+  display: grid;
+  grid-template-areas:
+    "form form"
+    "left right";
+  grid-template-columns: 1fr 1fr;
+  width: 60%;
+  padding-left: 1em;
+  padding-right: 1em;
+  align-items: center;
+  justify-items: center;
+}
+
+.submit-signin-signup {
+  grid-area: form;
+  justify-content: center;
+  width: 100%;
+}
+
+.left-button {
+  grid-area: left;
+}
+
+.right-button {
+  grid-area: right;
+}
+
+.input-form{
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  margin: .25em 0 1em 0;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: #495057;
+  background-color: #fff;
+  background-image: none;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s; 
+}
+
+.coffee-card td {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #495057;
+}
+
+.coffee-card table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.coffee-card th,
+.coffee-card td {
+  text-align: left;
+  padding: 10px;
+}
+.coffee-card tr:nth-child(even) {
+  background-color: #f0f0f0;
+}
+.coffee-card tr:nth-child(odd) {
+  background-color: #ffffff;
 }

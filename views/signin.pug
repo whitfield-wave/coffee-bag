@@ -1,22 +1,22 @@
 extends layout
 
 block main
-  form(action=`/users/signin` method="post")
-    dl
-      dt
-        label(for="username") Username:
-      dd
-        input(type="text" name="username" placeholder="username" value=username)
+  div.signin-signup
+    form#submit-signin.submit-signin-signup(action=`/users/signin` method="post" )
+      dl
+        dt
+          label(for="username") Username:
+        dd
+          input.input-form(type="text" name="username" placeholder="username" value=username)
 
-      dt
-        label(for="password") Password:
-      dd
-        input(type="password" name="password" placeholder="password")
+        dt
+          label(for="password") Password:
+        dd
+          input.input-form(type="password" name="password" placeholder="password")
+    form.left-button
+      button(form='submit-signin' ) Sign in
+    form.right-button(action='/users/signup' method='get')
+      button Sign up!
+   
 
-    fieldset.actions
-      input(type="submit" value="Sign In")
-
-  div
-    h2 Don't have an account?
-    form(action='/users/signup' method='get')
-      button(type='submit') Sign up!
+block signIn

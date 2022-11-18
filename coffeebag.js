@@ -76,7 +76,7 @@ app.post("/users/signin",
       let session = req.session;
       session.username = username;
       session.signedIn = true;
-      req.flash("info", "Welcome!");
+      req.flash("success", "Welcome!");
       res.redirect("/coffees");
     }
   }

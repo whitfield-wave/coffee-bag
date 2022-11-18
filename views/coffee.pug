@@ -6,7 +6,7 @@ block main
 
   div.coffee-card.coffee-header
     h2 #{coffee.name} 
-    table.details
+    table
       tr
         th Roaster: 
         td #{coffee.roaster_name}
@@ -35,7 +35,7 @@ block main
             button(type="submit") Edit
         td
           form.delete(action=`/coffees/${coffee.id}/destroy` method="post")
-                button(type="submit") Delete
+                button.delete(type="submit") Delete
 
   
   div.coffee-card-wrapper
@@ -44,7 +44,7 @@ block main
       form(action=`/coffees/${coffeeId}/add-brew` method='get')
         button Record a new brew!
     for brew in brews
-      div.coffee-card
+      div.brew-card
         table 
           tr
             th Method: 
@@ -61,4 +61,4 @@ block main
               button Edit
           tr
             form.delete(action=`/coffees/${coffeeId}/${brew.id}/delete-brew` method='post')
-              button Delete
+              button.delete Delete

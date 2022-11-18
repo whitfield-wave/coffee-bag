@@ -13,9 +13,15 @@ CREATE TABLE coffees (
 
 CREATE TABLE brews (
   id serial PRIMARY KEY,
-  method text NOT NULL,
-  description text NOT NULL,
+  method text,
+  description text,
   date date DEFAULT CURRENT_DATE,
   coffee_id integer NOT NULL REFERENCES coffees (id) ON DELETE CASCADE,
   username text NOT NULL
+);
+
+
+CREATE TABLE users (
+  username text NOT NULL,
+  password text NOT NULL
 );

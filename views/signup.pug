@@ -1,23 +1,24 @@
 extends layout 
 
 block main
-  form(action=`/users/signup` method="post")
-    dl
-      dt
-        label(for="username") Username:
-      dd
-        input(type="text" name="username" placeholder="username" value=username)
-      dt
-        label(for="password") Password:
-      dd
-        input(type="password" name="password" placeholder="password")
-      dt
-        label(for="password") Repeat Password:
-      dd
-        input(type="password" name="passwordRepeat" placeholder="password")
+  div.signin-signup
+    form#submit-signup.submit-signin-signup(action=`/users/signup` method="post")
+      dl
+        dt
+          label(for="username") Username:
+        dd
+          input.input-form(type="text" name="username" placeholder="username" value=username)
+        dt
+          label(for="password") Password:
+        dd
+          input.input-form(type="password" name="password" placeholder="password")
+        dt
+          label(for="password") Repeat Password:
+        dd
+          input.input-form(type="password" name="passwordRepeat" placeholder="password")
+    form.left-button
+      button(form='submit-signup') Sign Up    
+    form.right-button(action=`/users/signin` method='get') 
+      button Cancel
 
-    fieldset.actions
-      input(type="submit" value="Sign Up")
-      
-  a(href=`/users/signin`) 
-    button(type='button') Cancel
+block signIn
