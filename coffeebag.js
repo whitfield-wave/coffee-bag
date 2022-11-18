@@ -1,10 +1,13 @@
 const config = require("./lib/config");
 const express = require("express");
 const morgan = require("morgan");
+const flash = require("express-flash");
 const PgPersistence = require("./lib/pg-persistence");
 const session = require('express-session');
 const store = require("connect-loki");
 const LokiStore = store(session);
+
+const missingCoffeeNames = require('./lib/missing-coffee-names');
 
 
 const multer = require('multer');
@@ -33,6 +36,8 @@ app.use(session({
   store: new LokiStore({}),
 }));
 
+app.use(flash());
+
 // Create new datastore 
 app.use((req, res, next) => {
   res.locals.store = new PgPersistence(req.session);
@@ -43,10 +48,16 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
   res.locals.username = req.session.username;
   res.locals.signedIn = req.session.signedIn;
+  res.locals.flash = req.session.flash;
+  delete req.session.flash;
   next();
 });
 
-app.get('/users/signin', (req, res) => res.render('signin'));
+// Display Sign In page
+app.get('/users/signin', (req, res) => {
+  req.flash("info", "Please sign in.");
+  res.render('signin', { flash: req.flash() });
+});
 
 // Handle Sign In form submission
 app.post("/users/signin",
@@ -56,14 +67,17 @@ app.post("/users/signin",
 
     let authenticated = await res.locals.store.authenticate(username, password);
     if (!authenticated) {
+      req.flash("error", "Username or password was incorrect. Please try again");
       res.render("signin", {
         username: req.body.username,
+        flash: req.flash()
       });
     } else {
       let session = req.session;
       session.username = username;
       session.signedIn = true;
-      res.redirect("/");
+      req.flash("info", "Welcome!");
+      res.redirect("/coffees");
     }
   }
 );
@@ -75,11 +89,15 @@ app.post("/users/signout", (req, res) => {
   res.redirect("/users/signin");
 });
 
+// Display sign up form
+app.get("/users/signup", (req, res) => res.render('signup'));
+
+
 // Detect unauthorized access to routes.
 const requiresAuthentication = (req, res, next) => {
   if (!res.locals.signedIn) {
-    console.log("Unauthorized.");
-    res.status(401).send("Unauthorized.");
+    res.redirect('/users/signin');
+    // res.status(401).send("Unauthorized.");
   } else {
     next();
   }
@@ -93,30 +111,37 @@ app.get('/coffees', requiresAuthentication, async (req, res) => {
   try {
     let coffees = await res.locals.store.getAllCoffees();
     res.render('all-coffees', { coffees });
-
   } catch (error) {
     console.log(error);
   }
 });
 
 // Displays form to add new bag to database
-app.get('/coffees/add/',requiresAuthentication, (req, res) => {
-  res.render('add-coffee');
+app.get('/coffees/add/', requiresAuthentication, (req, res) => {
+  let coffee = {};
+  res.render('add-coffee', { coffee });
 });
 
 // Add a new bag to database
-app.post('/coffees/add/',requiresAuthentication, async (req, res) => {
+app.post('/coffees/add/', requiresAuthentication, async (req, res) => {
   try {
     let coffee = req.body;
-    await res.locals.store.addCoffee(coffee);
-    res.redirect('/coffees');
+    console.log(coffee);
+    if (missingCoffeeNames(coffee)) {
+      req.flash('error', "Name and Roaster's name are required.");
+      res.render('add-coffee', { coffee, flash: req.flash() });
+    } else {
+      await res.locals.store.addCoffee(coffee);
+      req.flash('info', `${coffee.coffeeName} added.`);
+      res.redirect('/coffees');
+    }
   } catch (error) {
     console.log(error)
   }
 });
 
 // Deletes a bag from the database
-app.post('/coffees/:coffeeId/destroy',requiresAuthentication, async (req, res) => {
+app.post('/coffees/:coffeeId/destroy', requiresAuthentication, async (req, res) => {
   try {
     let coffeeId = req.params.coffeeId;
     let deleted = await res.locals.store.deleteCoffee(coffeeId);
@@ -124,6 +149,7 @@ app.post('/coffees/:coffeeId/destroy',requiresAuthentication, async (req, res) =
     if (!deleted) {
       next(new Error("Not found."));
     } else {
+      req.flash('info', 'Coffee deleted');
       res.redirect('/coffees');
     }
   } catch (error) {
@@ -133,7 +159,7 @@ app.post('/coffees/:coffeeId/destroy',requiresAuthentication, async (req, res) =
 
 
 // Displays specifc bag of coffee along with associated brews
-app.get('/coffees/:coffeeId',requiresAuthentication, async (req, res, next) => {
+app.get('/coffees/:coffeeId', requiresAuthentication, async (req, res, next) => {
   try {
     let coffeeId = req.params.coffeeId;
     let coffee = await res.locals.store.getCoffee(coffeeId);
@@ -149,13 +175,13 @@ app.get('/coffees/:coffeeId',requiresAuthentication, async (req, res, next) => {
 });
 
 // Renders page to add brew. 
-app.get('/coffees/:coffeeId/add-brew',requiresAuthentication, (req, res) => {
+app.get('/coffees/:coffeeId/add-brew', requiresAuthentication, (req, res) => {
   let coffeeId = req.params.coffeeId;
   res.render("add-brew", { coffeeId });
 });
 
 // Adds a brew to a specific coffee based on its ID
-app.post('/coffees/:coffeeId/add-brew',requiresAuthentication, async (req, res, next) => {
+app.post('/coffees/:coffeeId/add-brew', requiresAuthentication, async (req, res, next) => {
   try {
     let coffeeId = req.params.coffeeId;
     let brew = req.body;
@@ -174,7 +200,7 @@ app.post('/coffees/:coffeeId/add-brew',requiresAuthentication, async (req, res, 
 });
 
 // Renders page to edit coffee details
-app.get("/coffees/:coffeeId/edit",requiresAuthentication, async (req, res) => {
+app.get("/coffees/:coffeeId/edit", requiresAuthentication, async (req, res) => {
   try {
     let coffeeId = req.params.coffeeId;
     let coffee = await res.locals.store.getCoffee(coffeeId);
@@ -185,7 +211,7 @@ app.get("/coffees/:coffeeId/edit",requiresAuthentication, async (req, res) => {
 });
 
 // Pushes entered changes to coffee to database and redirects to all coffees.
-app.post("/coffees/:coffeeId/edit",requiresAuthentication, async (req, res, next) => {
+app.post("/coffees/:coffeeId/edit", requiresAuthentication, async (req, res, next) => {
   try {
     let coffeeId = req.params.coffeeId;
     let coffee = req.body;
@@ -194,7 +220,7 @@ app.post("/coffees/:coffeeId/edit",requiresAuthentication, async (req, res, next
     if (!edited) {
       next(new Error("Coffee couldn't be edited."));
     } else {
-      res.redirect('/coffees')
+      res.redirect(`/coffees/${coffeeId}`);
     }
   } catch (error) {
     console.log(error);
@@ -202,10 +228,10 @@ app.post("/coffees/:coffeeId/edit",requiresAuthentication, async (req, res, next
 });
 
 // Renders page for specified brew
-app.get("/coffees/:coffeeId/:brewId",requiresAuthentication,)
+app.get("/coffees/:coffeeId/:brewId", requiresAuthentication,)
 
 // Renders edit-brew page for specified brew
-app.get("/coffees/:coffeeId/:brewId/edit-brew",requiresAuthentication, async (req, res) => {
+app.get("/coffees/:coffeeId/:brewId/edit-brew", requiresAuthentication, async (req, res) => {
   try {
     let coffeeId = req.params.coffeeId;
     let brewId = req.params.brewId;
@@ -217,7 +243,7 @@ app.get("/coffees/:coffeeId/:brewId/edit-brew",requiresAuthentication, async (re
 });
 
 // Edits aspect of specified brew and then redirects to coffee's page
-app.post("/coffees/:coffeeId/:brewId/edit-brew",requiresAuthentication, async (req, res, next) => {
+app.post("/coffees/:coffeeId/:brewId/edit-brew", requiresAuthentication, async (req, res, next) => {
   try {
     let coffeeId = req.params.coffeeId;
     let brewId = req.params.brewId;
@@ -235,7 +261,7 @@ app.post("/coffees/:coffeeId/:brewId/edit-brew",requiresAuthentication, async (r
 });
 
 // Deletes a selected brew for a specific coffee. 
-app.post("/coffees/:coffeeId/:brewId/delete-brew",requiresAuthentication, async (req, res, next) => {
+app.post("/coffees/:coffeeId/:brewId/delete-brew", requiresAuthentication, async (req, res, next) => {
   try {
     let coffeeId = req.params.coffeeId;
     let brewId = req.params.brewId;
@@ -245,6 +271,7 @@ app.post("/coffees/:coffeeId/:brewId/delete-brew",requiresAuthentication, async 
     if (!deleted) {
       next(new Error("Brew couldn't be deleted."));
     } else {
+      req.flash('info', 'Brew deleted');
       res.redirect(`/coffees/${coffeeId}`);
     }
   } catch (error) {
@@ -252,27 +279,6 @@ app.post("/coffees/:coffeeId/:brewId/delete-brew",requiresAuthentication, async 
   }
 
 });
-
-// Add the following code just before the Express error handler.
-
-// Handle Sign In form submission
-// app.post("/users/signin", (req, res) => {
-//   let username = req.body.username.trim();
-//   let password = req.body.password;
-
-//   if (username !== "admin" || password !== "secret") {
-//     req.flash("error", "Invalid credentials.");
-//     res.render("signin", {
-//       flash: req.flash(),
-//       username: req.body.username,
-//     });
-//   } else {
-//     req.session.username = username;
-//     req.session.signedIn = true;
-//     req.flash("info", "Welcome!");
-//     res.redirect("/lists");
-//   }
-// });
 
 // Error handler
 app.use((err, req, res, _next) => {

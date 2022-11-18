@@ -3,15 +3,12 @@ extends layout
 block main 
   div.add-coffee-form-wrapper  
     form(action='/coffees/' method='get')
-      button Back
+      button.back Back
     form(action="/coffees/add/"  method='post')
       div.add-coffee-form
-        //- div.form-element
-        //-   label Image
-        //-     input(type="file" name="uploaded_file")
         div.form-element
           label Coffee Name
-            input(type="text" name="coffeeName")
+            input(type="text" name="coffeeName" value=`${coffee.coffeeName ? coffee.coffeeName : ''}`)
         div.form-element
           label Roaster
             input(type="text" name="roasterName")
@@ -31,4 +28,5 @@ block main
           label Description 
             textarea(name="description")
         div.form-element
-          input(type="submit" value="Save Coffee")
+          //- input(type="submit" value="Save Coffee")
+          button.add Save Coffee

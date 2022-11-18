@@ -2,30 +2,63 @@ extend layout
 
 block main
   form(action='/coffees/' method='get')
-      button Back
-  form(action=`/coffees/${coffee.id}/edit` method="get")
-            button(type="submit") Edit
-  ul.coffee-card
+      button All coffees
+
+  div.coffee-card.coffee-header
     h2 #{coffee.name} 
-    li Roaster: #{coffee.roaster_name}
-    li COO: #{coffee.country_of_origin}
-    li Region: #{coffee.region_of_origin}
-    li Process: #{coffee.process}
-    li Price/bag: $#{coffee.bag_price}
-    li Your impression: #{coffee.description}
-    li Added on #{coffee.date.toLocaleDateString()}
-  br
-  form(action=`/coffees/${coffeeId}/add-brew` method='get')
-    button Record a brew!
+    table.details
+      tr
+        th Roaster: 
+        td #{coffee.roaster_name}
+      tr
+        th Country: 
+        td #{coffee.country_of_origin}
+      tr
+        th Region:
+        td #{coffee.region_of_origin}
+      tr
+        th Process: 
+        td #{coffee.process}
+      tr
+        th Price/bag:
+        td $#{coffee.bag_price}
+      tr
+        th Your impression:
+        td #{coffee.description}
+      tr
+        th Date added:
+        td #{coffee.date.toLocaleDateString()}
+    table.edit-delete
+      tr
+        td 
+          form(action=`/coffees/${coffee.id}/edit` method="get")
+            button(type="submit") Edit
+        td
+          form.delete(action=`/coffees/${coffee.id}/destroy` method="post")
+                button(type="submit") Delete
+
+  
   div.coffee-card-wrapper
-    h1 Your Brews
+    div
+      h1 Your Brews
+      form(action=`/coffees/${coffeeId}/add-brew` method='get')
+        button Record a new brew!
     for brew in brews
       div.coffee-card
-        ul 
-          li Method: #{brew.method}
-          li Date: #{brew.date.toLocaleDateString()}
-          li Description: #{brew.description}
-          form(action=`/coffees/${coffeeId}/${brew.id}/edit-brew` method='get')
-            button Edit
-          form(action=`/coffees/${coffeeId}/${brew.id}/delete-brew` method='post')
-            button Delete
+        table 
+          tr
+            th Method: 
+            td #{brew.method}
+          tr
+            th Date: 
+            td #{brew.date.toLocaleDateString()}
+          tr
+            th Description:
+            td #{brew.description}
+        table.edit-delete
+          tr
+            form(action=`/coffees/${coffeeId}/${brew.id}/edit-brew` method='get')
+              button Edit
+          tr
+            form.delete(action=`/coffees/${coffeeId}/${brew.id}/delete-brew` method='post')
+              button Delete

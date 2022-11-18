@@ -6,8 +6,6 @@ header {
   min-height: 10%;
 }
 
-
-
 header h1 {
   font-size: 7em;
 }
@@ -17,7 +15,22 @@ header h1 {
   margin-left: auto;
   margin-right: auto;
   background-color: aliceblue;
+}
 
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.coffee-card {
+  border: solid;
+  border-radius: 0.75em;
+  margin: 0.2em;
+  padding: 0.2em;
+  background-color: white;
 }
 
 .coffee-card-wrapper {
@@ -25,16 +38,13 @@ header h1 {
   flex-direction: column;
   max-width: 60%;
   margin: 0 auto;
-  min-height: 1400px;
+  min-height: 500px;
 }
 
-.coffee-card {
-  border: solid;
-  border-radius: 10px;
-  margin: 0.2em;
-  padding: 0.2em;
-  background-color: white;
+.coffee-header {
+  min-width: 75%;
 }
+
 
 .coffee-card span {
   font-size: 1.5em;
@@ -43,4 +53,71 @@ header h1 {
 
 .coffee-card a:hover {
   color: rgb(255, 127, 127)
+}
+
+.flash {
+  background-color: #cbe5f2;
+  color: #3399cc;
+  margin: 20px 0 1.5rem;
+  max-width: 1000px;
+  padding: 10px 20px;
+}
+
+.flash p {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.flash.error {
+  background-color: #ffcfbf;
+  color: #ff6633;
+}
+
+.flash.success {
+  background-color: #cbf2e5;
+  color: #33cc99;
+}
+
+button {
+  align-items: center;
+  background-clip: padding-box;
+  background-color: rgb(255, 127, 127);
+  border: 1px solid transparent;
+  border-radius: .75em;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1em;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 0;
+  min-height: 3rem;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+}
+
+button:hover,
+button:focus {
+  background-color: rgb(227, 113, 113);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  background-color: rgb(253, 106, 106) box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+  transform: translateY(0);
 }

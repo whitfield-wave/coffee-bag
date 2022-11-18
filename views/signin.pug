@@ -15,4 +15,8 @@ block main
 
     fieldset.actions
       input(type="submit" value="Sign In")
-      a(href=`/`) Cancel
+
+  div
+    h2 Don't have an account?
+    form(action='/users/signup' method='get')
+      button(type='submit') Sign up!

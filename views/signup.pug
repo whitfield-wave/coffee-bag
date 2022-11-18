@@ -1,0 +1,23 @@
+extends layout 
+
+block main
+  form(action=`/users/signup` method="post")
+    dl
+      dt
+        label(for="username") Username:
+      dd
+        input(type="text" name="username" placeholder="username" value=username)
+      dt
+        label(for="password") Password:
+      dd
+        input(type="password" name="password" placeholder="password")
+      dt
+        label(for="password") Repeat Password:
+      dd
+        input(type="password" name="passwordRepeat" placeholder="password")
+
+    fieldset.actions
+      input(type="submit" value="Sign Up")
+      
+  a(href=`/users/signin`) 
+    button(type='button') Cancel

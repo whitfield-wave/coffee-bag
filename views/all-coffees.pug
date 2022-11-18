@@ -2,7 +2,7 @@ extends layout
 
 block main 
   form(action='/coffees/add' method='get')
-    button Add a bag!
+    button.add Add a bag!
 
   br
   div.coffee-card-wrapper
@@ -29,13 +29,6 @@ block main
           tr
             th Your impression:
             td  #{coffee.description}
-          tr
-            td
-              form(action=`/coffees/${coffee.id}/destroy` method="post")
-                button(type="submit") Delete
-            td
-              form(action=`/coffees/${coffee.id}/edit` method="get")
-                button(type="submit") Edit
         p Added on #{coffee.date.toLocaleDateString()}
 
 
