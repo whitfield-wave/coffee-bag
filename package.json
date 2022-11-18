@@ -4,7 +4,7 @@
   "description": "",
   "main": "coffeebag.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "npm install --production",
     "start": "npx nodemon todos.js"
   },
   "author": "",
@@ -25,6 +25,10 @@
     "pug": "^3.0.2",
     "sharp": "^0.31.1",
     "uuid": "^9.0.0"
+  },
+  "engines": {
+    "node": "16.15.0",
+    "npm": "8.5.5"
   },
   "devDependencies": {
     "eslint": "^8.25.0",
