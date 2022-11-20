@@ -3,62 +3,62 @@ extend layout
 block main
   form(action='/coffees/' method='get')
       button All coffees
-
-  div.coffee-card.coffee-header
-    h2 #{coffee.name} 
-    table
-      tr
-        th Roaster: 
-        td #{coffee.roaster_name}
-      tr
-        th Country: 
-        td #{coffee.country_of_origin}
-      tr
-        th Region:
-        td #{coffee.region_of_origin}
-      tr
-        th Process: 
-        td #{coffee.process}
-      tr
-        th Price/bag:
-        td $#{coffee.bag_price}
-      tr
-        th Your impression:
-        td #{coffee.description}
-      tr
-        th Date added:
-        td #{coffee.date.toLocaleDateString()}
-    table.edit-delete
-      tr
-        td 
-          form(action=`/coffees/${coffee.id}/edit` method="get")
-            button(type="submit") Edit
-        td
-          form.delete(action=`/coffees/${coffee.id}/destroy` method="post")
-                button.delete(type="submit") Delete
-
-  
   div.coffee-card-wrapper
-    div
-      h1 Your Brews
-      form(action=`/coffees/${coffeeId}/add-brew` method='get')
-        button Record a new brew!
-    for brew in brews
-      div.brew-card
-        table 
-          tr
-            th Method: 
-            td #{brew.method}
-          tr
-            th Date: 
-            td #{brew.date.toLocaleDateString()}
-          tr
-            th Description:
-            td #{brew.description}
-        table.edit-delete
-          tr
-            form(action=`/coffees/${coffeeId}/${brew.id}/edit-brew` method='get')
-              button Edit
-          tr
-            form.delete(action=`/coffees/${coffeeId}/${brew.id}/delete-brew` method='post')
-              button.delete Delete
+    div.coffee-card.coffee-header
+      h2 #{coffee.name} 
+      table
+        tr
+          th Roaster: 
+          td #{coffee.roaster_name}
+        tr
+          th Country: 
+          td #{coffee.country_of_origin}
+        tr
+          th Region:
+          td #{coffee.region_of_origin}
+        tr
+          th Process: 
+          td #{coffee.process}
+        tr
+          th Price/bag:
+          td $#{coffee.bag_price}
+        tr
+          th Your impression:
+          td #{coffee.description}
+        tr
+          th Date added:
+          td #{coffee.date.toLocaleDateString()}
+      table.edit-delete
+        tr
+          td 
+            form(action=`/coffees/${coffee.id}/edit` method="get")
+              button(type="submit") Edit
+          td
+            form.delete(action=`/coffees/${coffee.id}/destroy` method="post")
+                  button.delete(type="submit") Delete
+
+    
+    div.coffee-card-wrapper
+      div
+        h1 Your Brews
+        form(action=`/coffees/${coffeeId}/add-brew` method='get')
+          button Record a new brew!
+      for brew in brews
+        div.brew-card
+          table 
+            tr
+              th Method: 
+              td #{brew.method}
+            tr
+              th Date: 
+              td #{brew.date.toLocaleDateString()}
+            tr
+              th Description:
+              td #{brew.description}
+          table.edit-delete
+            tr
+              form(action=`/coffees/${coffeeId}/${brew.id}/edit-brew` method='get')
+                button Edit
+            tr
+              form.delete(action=`/coffees/${coffeeId}/${brew.id}/delete-brew` method='post')
+                button.delete Delete

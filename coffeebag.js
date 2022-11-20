@@ -6,6 +6,7 @@ const PgPersistence = require("./lib/pg-persistence");
 const session = require('express-session');
 const store = require("connect-loki");
 const LokiStore = store(session);
+const bcrypt = require('bcrypt');
 
 const missingCoffeeNames = require('./lib/missing-coffee-names');
 
@@ -76,7 +77,7 @@ app.post("/users/signin",
       let session = req.session;
       session.username = username;
       session.signedIn = true;
-      req.flash("success", "Welcome!");
+      req.flash("success", `Welcome back, ${username}!`);
       res.redirect("/coffees");
     }
   }
@@ -91,6 +92,32 @@ app.post("/users/signout", (req, res) => {
 
 // Display sign up form
 app.get("/users/signup", (req, res) => res.render('signup'));
+
+// Handle sign up form submission
+app.post("/users/signup", async (req, res) => {
+  let username = req.body.username.trim();
+  let password = req.body.password;
+  let passwordRepeat = req.body.passwordRepeat;
+  let unique = await res.locals.store.isUniqueUsername(username);
+  let passwordsMatch = password === passwordRepeat;
+  if (!unique) {
+    req.flash('error', `Username ${username} already exists`);
+    res.redirect('/users/signup');
+  } else if (!passwordsMatch) {
+    req.flash('error', 'Passwords do not match.');
+    res.render('signup', { username, flash: req.flash() });
+  } else {
+    bcrypt.hash(password, 10, (err, hash) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.locals.store.addNewUser(username, hash);
+        req.flash('success', 'New user successfully created!');
+        res.redirect('/users/signin');
+      }
+    });
+  }
+});
 
 
 // Detect unauthorized access to routes.

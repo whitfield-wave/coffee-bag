@@ -4,13 +4,13 @@ block main
   div.add-coffee-form-wrapper
     form(action=`/coffees/${coffeeId}/add-brew` method='post')
       div.add-coffee-form
-        div.form-element
+        div
           label Method 
-            input(type="text" name="method")
-        div.form-element
+            input.input-form(type="text" name="method")
+        div
           label Description
-            input(type="text" name="description")
-        div.form-element
+            input.input-form(type="text" name="description")
+        div
           button Save Brew
-    form(action="/coffees" method="get")
-      button(type="submit") Cancel
+      form(action="/coffees" method="get")
+        button(type="submit") Cancel

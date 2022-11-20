@@ -11,6 +11,14 @@ header h1 {
   font-size: 7em;
 }
 
+h1 {
+  font-size: 2em;
+}
+
+h2{
+  font-size: 1.5em;
+}
+
 .container {
   width: 70%;
   margin-left: auto;
@@ -39,6 +47,7 @@ header h1 {
 .coffee-card-wrapper {
   display: flex;
   flex-direction: column;
+  justify-items: center;
   max-width: 60%;
   margin: 0 auto;
   min-height: 500px;
@@ -46,6 +55,13 @@ header h1 {
 
 .coffee-header {
   min-width: 60%;
+}
+
+.add-coffee-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
 }
 
 
@@ -59,7 +75,7 @@ header h1 {
 }
 
 .flash {
-  background-color: #ededed;
+  background-color: #b7fdff;
   color: #393939;
   margin: 20px 0 1.5rem;
   max-width: 1000px;

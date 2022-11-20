@@ -6,27 +6,27 @@ block main
       button.back Back
     form(action="/coffees/add/"  method='post')
       div.add-coffee-form
-        div.form-element
+        div
           label Coffee Name
-            input(type="text" name="coffeeName" value=`${coffee.coffeeName ? coffee.coffeeName : ''}`)
-        div.form-element
+            input.input-form(type="text" name="coffeeName" value=`${coffee.coffeeName ? coffee.coffeeName : ''}`)
+        div
           label Roaster
-            input(type="text" name="roasterName")
-        div.form-element
+            input.input-form(type="text" name="roasterName")
+        div
           label Country
-            input(type="text" name="countryOfOrigin")
-        div.form-element
+            input.input-form(type="text" name="countryOfOrigin")
+        div
           label Region
-            input(type="text" name="regionOfOrigin")
-        div.form-element
+            input.input-form(type="text" name="regionOfOrigin")
+        div
           label Process
-            input(type="text" name="process")
-        div.form-element
+            input.input-form(type="text" name="process")
+        div
           label Price per Bag 
-            input(type="number" step="0.01" min="0" name="bagPrice")
-        div.form-element
+            input.input-form(type="number" step="0.01" min="0" name="bagPrice")
+        div
           label Description 
-            textarea(name="description")
-        div.form-element
+            textarea.input-form(name="description")
+        div
           //- input(type="submit" value="Save Coffee")
           button.add Save Coffee
