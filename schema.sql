@@ -5,7 +5,7 @@ CREATE TABLE coffees (
   country_of_origin text,
   region_of_origin text,
   process text,
-  bag_price numeric (4,2),
+  bag_price numeric (6,2),
   description text,
   date date DEFAULT CURRENT_DATE,
   username text NOT NULL

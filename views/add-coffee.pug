@@ -8,7 +8,7 @@ block main
       div.add-coffee-form
         div
           label Coffee Name
-            input.input-form(type="text" name="coffeeName" value=`${coffee.coffeeName ? coffee.coffeeName : ''}`)
+            input.input-form(type="text" name="coffeeName" value=coffee.name)
         div
           label Roaster
             input.input-form(type="text" name="roasterName")

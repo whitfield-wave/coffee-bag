@@ -153,9 +153,11 @@ app.get('/coffees/add/', requiresAuthentication, (req, res) => {
 app.post('/coffees/add/', requiresAuthentication, async (req, res) => {
   try {
     let coffee = req.body;
-    console.log(coffee);
     if (missingCoffeeNames(coffee)) {
       req.flash('error', "Name and Roaster's name are required.");
+      res.render('add-coffee', { coffee, flash: req.flash() });
+    } else if (coffee.bagPrice > 9999.99) {
+      req.flash('error', 'Bag price must be less than $10000.');
       res.render('add-coffee', { coffee, flash: req.flash() });
     } else {
       await res.locals.store.addCoffee(coffee);
