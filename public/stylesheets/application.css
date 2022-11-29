@@ -42,6 +42,7 @@ h2{
   padding: 0.2em;
   background-color: white;
   padding: 1em;
+  min-width: 400px;
 }
 
 .coffee-card-wrapper {
@@ -51,6 +52,13 @@ h2{
   max-width: 60%;
   margin: 0 auto;
   min-height: 500px;
+}
+
+.brew-card-warpper {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  margin: 0 auto;
 }
 
 .coffee-header {
@@ -63,7 +71,6 @@ h2{
   align-items: center;
 
 }
-
 
 .coffee-card span {
   font-size: 1.5em;

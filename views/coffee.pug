@@ -38,7 +38,7 @@ block main
                   button.delete(type="submit") Delete
 
     
-    div.coffee-card-wrapper
+    div.brew-card-wrapper
       div
         h1 Your Brews
         form(action=`/coffees/${coffeeId}/add-brew` method='get')
@@ -57,8 +57,9 @@ block main
               td #{brew.description}
           table.edit-delete
             tr
-              form(action=`/coffees/${coffeeId}/${brew.id}/edit-brew` method='get')
-                button Edit
-            tr
-              form.delete(action=`/coffees/${coffeeId}/${brew.id}/delete-brew` method='post')
-                button.delete Delete
+              td
+                form(action=`/coffees/${coffeeId}/${brew.id}/edit-brew` method='get')
+                  button Edit
+              td
+                form.delete(action=`/coffees/${coffeeId}/${brew.id}/delete-brew` method='post')
+                  button.delete Delete

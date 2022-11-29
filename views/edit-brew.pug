@@ -6,11 +6,11 @@ block main
       div.add-coffee-form
         div.form-element
           label Method 
-            input(type="text" name="method" placeHolder=brew.method)
+            input.input-form(type="text" name="method" placeHolder=brew.method)
         div.form-element
           label Description
-            textarea(name="description" placeHolder=brew.description)
+            textarea.input-form(name="description" placeHolder=brew.description)
         div.form-element
           button.add Save Changes
-    form(action="/coffees" method="get")
+    form(action=`/coffees/${coffeeId}/` method="get")
       button(type="submit") Cancel
