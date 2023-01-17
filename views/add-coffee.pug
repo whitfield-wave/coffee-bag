@@ -4,7 +4,7 @@ block main
   div.add-coffee-form-wrapper  
     form(action='/coffees/' method='get')
       button.back Back
-    form(action="/coffees/add/" enctype="multipart/form-data"  method='post')
+    form(action="/coffees/add/" method='post')
       div.add-coffee-form
         div
           label Coffee Name
@@ -27,8 +27,5 @@ block main
         div
           label Description 
             textarea.input-form(name="description")
-        div
-          label Pictures 
-            input(type='file' accept="image/*" name="coffeeImage")
         div
           button.add Save Coffee
