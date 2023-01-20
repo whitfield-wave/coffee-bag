@@ -1,21 +1,33 @@
+h1,
+h2,
+p,
+th,
+a,
+tr {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 body {
-  background-color: rgb(255, 227, 174);
+  background-color: #dde5b6;
   height: 100vh;
 }
 
 header {
   min-height: 10%;
+  margin-bottom: 3em;
+  border-bottom: 0.3em solid #b5b5b5;
 }
 
 header h1 {
   font-size: 7em;
+  margin: 0 0 .25em 1em;
 }
 
 h1 {
   font-size: 2em;
 }
 
-h2{
+h2 {
   font-size: 1.5em;
 }
 
@@ -35,7 +47,8 @@ h2{
 }
 
 
-.coffee-card, .brew-card {
+.coffee-card,
+.brew-card {
   border: solid;
   border-radius: 0.75em;
   margin: 0.2em;
@@ -179,7 +192,7 @@ button:active {
   grid-area: right;
 }
 
-.input-form{
+.input-form {
   width: 100%;
   padding: 0.5rem 0.75rem;
   margin: .25em 0 1em 0;
@@ -191,7 +204,7 @@ button:active {
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
-  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s; 
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 
 .coffee-card td {
@@ -203,14 +216,22 @@ button:active {
   border-collapse: collapse;
   width: 100%;
 }
+
 .coffee-card th,
 .coffee-card td {
   text-align: left;
   padding: 10px;
 }
+
 .coffee-card tr:nth-child(even) {
   background-color: #f0f0f0;
 }
+
 .coffee-card tr:nth-child(odd) {
   background-color: #ffffff;
+}
+
+.actions {
+  margin-left: 1em;
+  padding-bottom: 1em;
 }
