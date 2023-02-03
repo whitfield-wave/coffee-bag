@@ -10,10 +10,6 @@ const bcrypt = require('bcrypt');
 
 const missingCoffeeNames = require('./lib/missing-coffee-names');
 
-
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' })
-
 const app = express();
 const host = config.HOST;
 const port = config.PORT;
